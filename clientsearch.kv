@@ -1,0 +1,49 @@
+<SearchPage>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: '10dp'
+        spacing: '10dp'
+
+        # Styled Back Button
+        Button:
+            text: '⬅ Back to Home'
+            size_hint_y: None
+            height: '50dp'
+            font_size: '18sp'
+            background_normal: ''  # Remove default background
+            background_color: .2, .6, .8, 1  # Custom color (blueish)
+            color: 1, 1, 1, 1  # Text color white
+            on_release: app.root.current = 'home'  # Set to the name of your home page screen
+
+        # Styled Search Input
+        TextInput:
+            id: search_input
+            size_hint_y: None
+            height: '50dp'
+            multiline: False
+            font_size: '18sp'
+            hint_text: '🔍 Search by Référence 1 or Désignation FR...'
+            background_color: .9, .9, .9, 1  # Light background
+            foreground_color: 0, 0, 0, 1  # Dark text color
+            padding: '10dp'
+            on_text: root.filter_clients(self.text)
+
+        # Client List View
+        RecycleView:
+            id: client_list_view
+            viewclass: 'ClientButton'
+            RecycleBoxLayout:
+                default_size: None, dp(60)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'
+                spacing: '5dp'
+
+<ClientButton@Button>:
+    font_size: '16sp'
+    background_normal: ''  # Remove default background
+    background_color: .8, .8, .8, 1  # Light gray background for list items
+    color: 0, 0, 0, 1  # Text color black
+    padding: '10dp'
+    on_release: app.root.get_screen('clientsearch').children[0].select_client(self.text)

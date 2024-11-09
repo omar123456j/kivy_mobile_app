@@ -1,0 +1,38 @@
+<ClientDataView>:
+    orientation: 'vertical'
+    
+    # Back Button at the top with modern styling
+    BoxLayout:
+        size_hint_y: None
+        height: dp(56)
+        padding: dp(10)
+        spacing: dp(10)
+        
+        Button:
+            text: "Back"
+            font_size: '16sp'
+            size_hint: None, None
+            size: dp(100), dp(40)
+            background_color: 0.2, 0.6, 0.8, 1  # Modern color, like blue
+            color: 1, 1, 1, 1  # White text
+            on_release: app.root.current = 'home'  # Adjust with the actual screen name
+        
+    RecycleView:
+        id: client_list_view
+        viewclass: 'ClientButton1'
+        RecycleBoxLayout:
+            default_size: None, dp(56)
+            default_size_hint: 1, None
+            size_hint_y: None
+            height: self.minimum_height
+            orientation: 'vertical'
+
+<ClientButton1>:
+    orientation: 'horizontal'
+    Label:
+        text: root.client_info  # Use the client_info property
+    Button:
+        text: "Edit"
+        on_release: app.root.get_screen('test').children[0].edit_client(root.client_info)
+
+
